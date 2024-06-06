@@ -30,6 +30,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// GET - /api/activities/:id - get a single activity by id
+router.get('/:id', async (req, res, next) => {
+  try {
+      const activities = await getActivityById(req.params.id);
+      res.send(activities);
+  } catch (error) {
+      next(error);
+  }
+});
+
 // POST /api/activities
 router.post('/', requireUser, requiredNotSent({requiredParams: ['name', 'description']}), async (req, res, next) => {
   try {
